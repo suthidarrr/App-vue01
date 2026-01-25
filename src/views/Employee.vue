@@ -1,6 +1,11 @@
 <template>
   <div class="container mt-4">
     <h2 class="mb-3">รายชื่อพนักงาน</h2>
+
+     <!--ปุ่มเพิ่มหน้า-->
+    <div class="mb-3 text-end">
+      <a class="btn btn-success" href="/add_employee" role="button">Add+</a>
+    </div>
     
     <!-- ตารางแสดงข้อมูลลูกค้า -->
     <table class="table table-bordered table-striped">
@@ -11,7 +16,7 @@
           <th>แผนก</th>
           <th>เงินเดือน</th>
           <th>สถานะ</th>
-          <th>เริ่มงานวันที่</th>
+          <!--<th>เริ่มงานวันที่</th>-->
         </tr>
       </thead>
       <tbody>
@@ -20,8 +25,11 @@
           <td>{{ employee.full_name }}</td>
           <td>{{ employee.department }}</td>
           <td>{{ employee.salary }}</td>
-          <td>{{ employee.active }}</td>
-          <td>{{ employee.created_at }}</td>
+          <td>
+            <span v-if="employee.active == 1">ปกติ</span>
+            <span v-else>ลาออก</span>
+          </td>
+          <!--<td>{{ employee.created_at }}</td>-->
         </tr>
       </tbody>
     </table>
