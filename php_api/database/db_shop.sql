@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 25, 2026 at 12:32 PM
+-- Generation Time: Feb 01, 2026 at 12:28 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -44,8 +44,9 @@ INSERT INTO `customers` (`customer_id`, `firstName`, `lastName`, `phone`, `usern
 (1, 'สมชาย', 'ใจดี', '0812345678', 'somchai', 'pass1234'),
 (2, 'วิภา', 'สุขสันต์', '0898765432', 'wipa', 'wipa2025'),
 (3, 'John', 'Doe', '0991122334', 'johnd', 'securepwd'),
-(4, 'สุธิดา', 'เรืองสุขสุด', '0900826952', 'suthidarrr', '$2y$10$06/.zvvAp3pB3'),
-(5, 'จารุดา', 'ไทยป้อม', '0985468521', 'frame', '$2y$10$7JiTk55QQFkAhy8Fy2OpY.IlknFyPL4HqtaMWguzVnDhdbSSFhBBy');
+(4, 'สุธิดา', 'พูลภาพ', '0900826952', 'suthidarrr', '$2y$10$06/.zvvAp3pB3'),
+(5, 'จารุดา', 'ไทยป้อม', '0985468521', 'frame', '$2y$10$7JiTk55QQFkAhy8Fy2OpY.IlknFyPL4HqtaMWguzVnDhdbSSFhBBy'),
+(6, 'สุทิน', 'เรืองสุขสุด', '0831190572', 'sutin', '$2y$10$BbWT0L9F8M41x/Nrpqwhte.77ZoydamgzZj/fwKe67/UxFBZC98jK');
 
 -- --------------------------------------------------------
 
@@ -115,7 +116,8 @@ CREATE TABLE `type` (
 
 INSERT INTO `type` (`type_id`, `type_name`) VALUES
 (1, 'เครื่องใช้ไฟฟ้า'),
-(2, 'ของใช้สำนักงาน');
+(2, 'ของใช้สำนักงาน'),
+(4, 'เครื่องใช้สำนักงาน');
 
 --
 -- Indexes for dumped tables
@@ -153,13 +155,13 @@ ALTER TABLE `type`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `customer_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `customer_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `emp_id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `emp_id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -171,7 +173,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `type`
 --
 ALTER TABLE `type`
-  MODIFY `type_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัสสินค้า', AUTO_INCREMENT=3;
+  MODIFY `type_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัสสินค้า', AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
