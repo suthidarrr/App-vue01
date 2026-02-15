@@ -17,21 +17,7 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/">Home</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/customer">Customer</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/customer_crud">Customer_crud</a>
-        </li>
-         <li class="nav-item">
-          <a class="nav-link" href="/contact">Contact</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/employee">employee</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/employee_crud">Employee_crud</a>
-        </li>
+         
         
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -40,6 +26,7 @@
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="/product">Product</a></li>
             <li><a class="dropdown-item" href="/product_api">Product_API</a></li>
+            <li><a class="dropdown-item" href="/product_crud">Product_crud</a></li>
             <li><a class="dropdown-item" href="/show_product">Show_product</a></li>
             <li><hr class="dropdown-divider"></li>
             <li class="nav-item">
@@ -49,11 +36,38 @@
           <a class="nav-link" href="/type_crud">type_Crud</a>
         </li>
           </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Employee
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/employee">Employee</a></li>
+            <li><a class="dropdown-item" href="/employee_crud">Employee_crud</a></li>
+            <li><a class="dropdown-item" href="/employee_crud_image">Employee_crud_image</a></li>
+          </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Customer
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/customer">customer</a></li>
+            <li><a class="dropdown-item" href="/customer_crud">Customer_crud</a></li>
+          </ul>
+          </li>
+
+          <li class="nav-item">
+          <a class="nav-link" href="/contact">Contact</a>
         </li>
+
         <li class="nav-item">
           <a class="nav-link disabled" aria-disabled="true">Disabled</a>
         </li>
       </ul>
+      
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
         <button class="btn btn-outline-danger" type="submit">Search</button>
