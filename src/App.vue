@@ -8,14 +8,14 @@
 
   <nav class="navbar navbar-expand-lg bg-primary-subtle">
   <div class="container">
-    <a class="navbar-brand" href="/">Navbar</a>
+    <a class="navbar-brand" href="/home">DB-SHOP</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Home</a>
+          <a class="nav-link active" aria-current="page" href="/home">Home</a>
         </li>
          
         
@@ -24,80 +24,137 @@
             Product
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/product">Product</a></li>
-            <li><a class="dropdown-item" href="/product_api">Product_API</a></li>
-            <li><a class="dropdown-item" href="/product_crud">Product_crud</a></li>
+            <li v-if="isLoggedIn"><a class="dropdown-item" href="/product">Product</a></li>
+            <li v-if="isLoggedIn"><a class="dropdown-item" href="/product_api">Product_API</a></li>
+            <li v-if="isLoggedIn"><a class="dropdown-item" href="/product_crud">Product_crud</a></li>
             <li><a class="dropdown-item" href="/show_product">Show_product</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li class="nav-item">
+            <li class="nav-item" v-if="isLoggedIn">
           <a class="nav-link" href="/type">type</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" v-if="isLoggedIn">
           <a class="nav-link" href="/type_crud">type_Crud</a>
         </li>
           </ul>
           </li>
 
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown" v-if="isLoggedIn">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Employee
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/employee">Employee</a></li>
-            <li><a class="dropdown-item" href="/employee_crud">Employee_crud</a></li>
-            <li><a class="dropdown-item" href="/employee_crud_image">Employee_crud_image</a></li>
+            <li v-if="isLoggedIn"><a class="dropdown-item" href="/employee">Employee</a></li>
+            <li v-if="isLoggedIn"><a class="dropdown-item" href="/employee_crud">Employee_crud</a></li>
+            <li v-if="isLoggedIn"><a class="dropdown-item" href="/employee_crud_image">Employee_crud_image</a></li>
           </ul>
           </li>
 
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown" v-if="isLoggedIn">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Customer
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/customer">customer</a></li>
-            <li><a class="dropdown-item" href="/customer_crud">Customer_crud</a></li>
+            <li v-if="isLoggedIn"><a class="dropdown-item" href="/customer">customer</a></li>
+            <li v-if="isLoggedIn"><a class="dropdown-item" href="/customer_crud">Customer_crud</a></li>
           </ul>
           </li>
 
           <li class="nav-item">
           <a class="nav-link" href="/contact">Contact</a>
         </li>
-
-        <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-        </li>
       </ul>
       
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-        <button class="btn btn-outline-danger" type="submit">Search</button>
-      </form>
+       <!-- ✅ ส่วนแสดงสถานะ Login -->
+        <div class="d-flex align-items-center">
+
+          <!-- แสดงชื่อผู้ใช้ -->
+          <span v-if="isLoggedIn" class="me-3">
+            👤 <span class="badge bg-success">{{ userName }}</span>
+          </span>
+
+          <!-- ปุ่ม Login (ถ้ายังไม่ Login) -->
+          <router-link
+            v-if="!isLoggedIn"
+            to="/login"
+            class="btn btn-primary"
+          >
+            Login
+          </router-link>
+
+          <!-- ปุ่ม Logout (ถ้า Login แล้ว) -->
+          <button
+            v-if="isLoggedIn"
+            @click="logout"
+            class="btn btn-danger"
+          >
+            Logout
+          </button>
+
+        </div>
     </div>
   </div>
 </nav>
   </div>
-  
+
   <router-view/>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #000000;
-}
+<script>
+export default {
+  data() {
+    return {
+      // ✅ ตัวแปรเก็บสถานะ Login
+      isLoggedIn: false,
 
-nav {
-  padding: 30px;
-}
+      // ✅ ตัวแปรเก็บชื่อผู้ใช้
+      userName: ""
+    }
+  },
 
-nav a {
-  font-weight: bold;
-  color: #000000;
-}
+  // ✅ ทำงานทันทีเมื่อโหลด Component
+  mounted() {
+    this.checkLogin()
+  },
 
-nav a.router-link-exact-active {
-  color: #ff0000;
+  methods: {
+
+    // ✅ ตรวจสอบสถานะ Login จาก localStorage
+    checkLogin() {
+
+      // ถ้ามี adminLogin → ถือว่า Login แล้ว
+      this.isLoggedIn = !!localStorage.getItem("adminLogin")
+
+      if (this.isLoggedIn) {
+
+        // ดึงข้อมูล user
+        const user = JSON.parse(localStorage.getItem("user"))
+
+        // แสดงชื่อ ถ้าไม่มีใช้ "Admin"
+        this.userName = user?.name || "Admin"
+      }
+    },
+
+    // ✅ Logout
+    logout() {
+
+      // ลบข้อมูล Login
+      localStorage.removeItem("adminLogin")
+      localStorage.removeItem("user")
+
+      // รีเซ็ตค่า
+      this.isLoggedIn = false
+      this.userName = ""
+
+      // ไปหน้า Login
+      this.$router.push("/login")
+    }
+  },
+
+  // ✅ ถ้าเปลี่ยนหน้า → เช็ค Login ใหม่
+  watch: {
+    '$route'() {
+      this.checkLogin()
+    }
+  }
 }
-</style>
+</script>

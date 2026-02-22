@@ -2,10 +2,15 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 
 const routes = [
-  {
+  /*{
     path: '/',
     name: 'home',
     component: HomeView
+  },*/
+  {
+    path: '/home',
+    name: 'home',
+    component: () => import('../views/Home.vue')
   },
   {
     path: '/customer',
@@ -35,7 +40,8 @@ const routes = [
   {
     path: '/add_employee',
     name: 'add_employee',
-    component: () => import('../views/Add_employee.vue')
+    component: () => import('../views/Add_employee.vue'),
+    meta: { requiresAuth: true }   // ✅ บังคับ login
   },
   {
     path: '/product',
@@ -55,33 +61,66 @@ const routes = [
   {
     path: '/customer_crud',
     name: 'customer_crud',
-    component: () => import('../views/Customer_crud.vue')
+    component: () => import('../views/Customer_crud.vue'),
+    meta: { requiresAuth: true }   // ✅ บังคับ login
   },
   {
     path: '/employee_crud',
     name: 'employee_crud',
-    component: () => import('../views/Employee_crud.vue')
+    component: () => import('../views/Employee_crud.vue'),
+    meta: { requiresAuth: true }   // ✅ บังคับ login
   },
   {
     path: '/type_crud',
     name: 'type_crud',
-    component: () => import('../views/Type_crud.vue')
+    component: () => import('../views/Type_crud.vue'),
+    meta: { requiresAuth: true }   // ✅ บังคับ login
   },
   {
     path: '/product_crud',
     name: 'product_crud',
-    component: () => import('../views/Product_crud.vue')
+    component: () => import('../views/Product_crud.vue'),
+    meta: { requiresAuth: true }   // ✅ บังคับ login
   },
   {
     path: '/employee_crud_image',
     name: 'employee_crud_image',
-    component: () => import('../views/Employee_crud_image.vue')
+    component: () => import('../views/Employee_crud_image.vue'),
+    meta: { requiresAuth: true }   // ✅ บังคับ login
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('../views/Login.vue')
+  },
+  {
+    path: '/productDetail',
+    name: 'productDetail',
+    component: () => import('../views/ProductDetail.vue')
   }
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+/* ✅ ROUTE GUARD */
+router.beforeEach((to, from, next) => {
+
+  const isLoggedIn = localStorage.getItem("adminLogin")
+
+  // ถ้าหน้านั้นต้อง login แต่ยังไม่ login
+  if (to.meta.requiresAuth && !isLoggedIn) {
+    next('/login')
+  } 
+  // ถ้า login แล้วแต่พยายามเข้าหน้า login
+  else if (to.path === '/login' && isLoggedIn) {
+    next('/')   // หรือ dashboard
+  }
+  else {
+    next()
+  }
 })
 
 export default router

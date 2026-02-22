@@ -1,11 +1,8 @@
 <?php
-
 include 'condb.php';
-header("Access-Control-Allow-Origin: *");
-header('Content-Type: application/json');
 
 try {
-    $stmt = $conn->query("SELECT * FROM products");
+    $stmt = $conn->query("SELECT * FROM products order by product_id DESC lIMIT 4");
     $datas = $stmt->fetchAll(PDO::FETCH_ASSOC);
     echo json_encode($datas);
     

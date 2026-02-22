@@ -3,7 +3,7 @@
     <h2 class="mb-3">ข้อมูลพนักงาน</h2>
 
     <div class="mb-3">
-      <button class="btn btn-primary" @click="openAddModal">Add+</button>
+      <button class="btn btn-primary" @click="openAddModal">Add <i class="bi bi-plus-circle"></i></button>
     </div>
 
     <table class="table table-bordered table-striped">
